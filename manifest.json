@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "SolarAssistant LAN Authenticator",
+  "version": "1.0",
+
+  "permissions": [
+    "webNavigation",
+    "tabs",
+    "http://solar.bukutu.xyz/*",
+    "https://solar.bukutu.xyz/*",
+    "storage"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["http://solar.bukutu.xyz/sign_in"],
+      "js": ["content-script.js"]
+    }
+  ]
+}
