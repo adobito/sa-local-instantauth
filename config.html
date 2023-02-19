@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Extension Configuration</title>
+  <style>
+    label {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    label > span {
+      flex: 1;
+      margin-right: 10px;
+    }
+    label > input {
+      flex: 2;
+    }
+  </style>
+</head>
+<body>
+  <h3>Configuration</h3>
+  <label>
+    <span>HTTPS only?</span>
+    <input type="checkbox" id="httpsOnly" checked>
+  </label>
+  <label>
+    <span>Domain:</span>
+    <input type="text" id="domain">
+  </label>
+  <label>
+    <span>Password:</span>
+    <input type="password" id="password">
+  </label>
+  <script src="config.js"></script>
+</body>
+</html>
