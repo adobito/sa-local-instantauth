@@ -9,11 +9,17 @@ browser.storage.local.get(['httpsOnly', 'domain']).then((result) => {
   if (url.hostname === domain && url.pathname === '/sign_in') {
     // Check the protocol if httpsOnly is enabled or disabled
     if (httpsOnly && url.protocol === 'https:' || !httpsOnly && (url.protocol === 'http:' || url.protocol === 'https:')) {
-      infiniteLoopCheck(automatedPasswordFiller,
-        function () {
-          alert('Password might be incorrect or some other issue may be causing the login to fail');
+      checkIfPageIsSolarAssistant().then(isSolarAssistant => {
+        if (!isSolarAssistant) {
+          alert("Cannot find the SolarAssistant manifest. Aborting.");
+          return;
         }
-      );
+        infiniteLoopCheck(automatedPasswordFiller,
+          function () {
+            alert('Password might be incorrect or some other issue may be causing the login to fail');
+          }
+        )
+      })
     }
   }
 });
@@ -65,4 +71,25 @@ function automatedPasswordFiller() {
       }
     }
   });
+}
+
+//Checks to see if SolarAssistant Manifest is present to ensure this actually the SA website
+function checkIfPageIsSolarAssistant() {
+  // Find the <link> element with rel="manifest" and get its href attribute
+  const manifestLink = document.querySelector('link[rel="manifest"]');
+  if (!manifestLink) {
+    return new Promise(false);
+  }
+  const manifestUrl = manifestLink.href;
+  // Fetch the manifest JSON from the URL
+  return fetch(manifestUrl)
+    .then(response => response.json())
+    .then(manifest => {
+      // Check if the "name" field is set to "SolarAssistant"
+      return manifest.name === "SolarAssistant";
+    })
+    .catch(error => {
+      console.error(`Error fetching manifest from ${manifestUrl}:`, error);
+      return false;
+    });
 }
