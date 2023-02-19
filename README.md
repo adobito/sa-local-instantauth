@@ -1,5 +1,8 @@
 # sa-local-instantauth
 
-Just an extension that automatically signs in the SA local website when it 
-shows. Did it as  PoC but requires some extra love to be able to have it 
-be signed by Mozilla.
+Extension that attempts to auto-login to SA when running in offline mode.
+
+Has 3 configuration options:
+HTTPS Only: Decides if it should execute on both HTTP and HTTPS
+Domain: Domain name to do suto-login on
+Password: Password to fill out in SA Offline website to auto-login

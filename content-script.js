@@ -11,7 +11,7 @@ browser.storage.local.get(['httpsOnly', 'domain']).then((result) => {
     if (httpsOnly && url.protocol === 'https:' || !httpsOnly && (url.protocol === 'http:' || url.protocol === 'https:')) {
       checkIfPageIsSolarAssistant().then(isSolarAssistant => {
         if (!isSolarAssistant) {
-          alert("Cannot find the SolarAssistant manifest. Aborting.");
+          console.log("Cannot find the SolarAssistant manifest. Aborting.");
           return;
         }
         infiniteLoopCheck(automatedPasswordFiller,
